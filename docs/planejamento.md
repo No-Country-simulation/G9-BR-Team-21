@@ -23,6 +23,8 @@ Sugestões para discussão na reunião hoje:
 ## 👥 Decisões da equipe     
 > Registrar as decisões tomadas durante as reuniões para não esquecermos/ facilitar, tipo uma Ata...    
 
+### Plano de Sprints (5 semanas) - Por João Medeiros
+https://docs.google.com/document/u/0/d/1tYnJWe3Cg9JeXNSWdEGbNBY0hHv-wT1OtIylyq8HNG8/mobilebasic?pli=1
 
 </br> </br>
 

@@ -2,7 +2,6 @@
 
 > Este arquivo funciona como um Kanban simples dentro do repositório. </br>
 > ## 🧭 Como usar:
-> Para mover um item de coluna (Planejamento > Em progresso > Revisão...), **só copiar o bloco e colar na seção de destino**, depois atualize os contadores da tabela abaixo.
 > 1. **Criar tarefa nova** → adiciona um bloco `- [ ]` na coluna "Planejamento".
 > 2. **Mover + Atualizar Progresso (Planejando > Fazendo > Revisão...)**
 >      * Só dar check [x] na coluna atual e copiar e colar a 'tarefa' para a nova seção de destino,
@@ -104,6 +103,3 @@ Modelo:
 
 ## Semana 2 — ...
 
-
-**Meta da sprint:** 
-Se preferir manter só como arquivo interno (sem virar site), basta deixá-lo na raiz do repo ou em `/docs`, `/planejamento` etc. — ele já renderiza bonito ao abrir direto no GitHub.

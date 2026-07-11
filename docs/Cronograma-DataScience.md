@@ -27,7 +27,6 @@
 
 > **Meta Geral:** dataset inicial bruto documentado (com dicionário de variáveis) + contrato de API _ esqueleto do projeto rodando local + escolher a OCI que vamos usar.
 
-  - Prazo: `<data>`
 </br>
 
 - [x] **DSx**

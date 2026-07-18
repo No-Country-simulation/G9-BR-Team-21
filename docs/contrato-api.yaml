@@ -1,0 +1,8 @@
+openapi: 3.0.3
+info:
+  title: API EnergiAI
+  version: 1.0.0
+  description: |
+    Todos os endpoints utilizam o prefixo /api/v1.
+    Exemplo: POST /api/v1/analise-energetica
+paths: {}

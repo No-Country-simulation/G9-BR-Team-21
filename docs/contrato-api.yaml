@@ -1,8 +1,121 @@
+# ==================================================
+# API EnergiAI
+# Versionamento adotado: /api/v1
+# Todos os endpoints deverão utilizar esse prefixo.
+# Exemplo:
+#   POST /api/v1/analise-energetica
+# ==================================================
 openapi: 3.0.3
 info:
   title: API EnergiAI
   version: 1.0.0
   description: |
+    API de classificação de perfil energético do EnergiAI.
     Todos os endpoints utilizam o prefixo /api/v1.
-    Exemplo: POST /api/v1/analise-energetica
-paths: {}
+
+    Valores de tipo_imovel e as faixas de consumo_kwh estão
+    pendentes de confirmação final com o time de Data Science.
+
+paths:
+  /api/v1/analise-energetica:
+    post:
+      summary: Analisa o perfil energético de consumo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - consumo_kwh
+                - uso_horario_pico
+                - quantidade_equipamentos
+                - tipo_imovel
+                - horas_alto_consumo
+              properties:
+                consumo_kwh:  # PENDENTE: confirmar valores exatos com o DS
+                  type: number
+                  example: 420  # PENDENTE: confirmar valores exatos com o DS
+                uso_horario_pico:
+                  type: boolean
+                  example: true
+                quantidade_equipamentos:
+                  type: integer
+                  example: 10
+                tipo_imovel:
+                  type: string
+                  enum: [Casa, Apartamento, Comércio]  # PENDENTE: confirmar valores exatos com o DS
+                  example: Casa
+                horas_alto_consumo:
+                  type: integer
+                  example: 8
+      responses:
+        '200':
+          description: Análise realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categoria:
+                    type: string
+                    enum: [Eficiente, Moderado, Ineficiente]  # PENDENTE: confirmar valores exatos com o DS
+                    example: Ineficiente
+                  probabilidade:
+                    type: number
+                    example: 0.81  # PENDENTE: confirmar valores exatos com o DS
+                  recomendacoes:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - "Reduzir o uso de equipamentos durante horários de pico"
+                      - "Avaliar aparelhos com alto consumo energético"
+                  custo_estimado_mensal:
+                    type: number
+                    example: 315.00  # PENDENTE: confirmar valores exatos com o DS
+        '400':
+          description: Requisição inválida — campo obrigatório ausente ou tipo de dado incorreto
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro: { type: string, example: "Campo consumo_kwh é obrigatório" }
+                  codigo: { type: integer, example: 400 }
+                  campo: { type: string, example: "consumo_kwh" }
+        '422':
+          description: Valor fora da faixa permitida ou fora do enum aceito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro: { type: string, example: "O consumo_kwh deve ser maior que zero" }
+                  codigo: { type: integer, example: 422 }
+                  campo: { type: string, example: "consumo_kwh" }
+        '503':
+          description: Serviço de análise (model service) indisponível
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro: { type: string, example: "Serviço de análise indisponível no momento" }
+                  codigo: { type: integer, example: 503 }
+                  campo: { type: string, nullable: true, example: null }
+        '500':
+          description: Erro interno inesperado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  erro: { type: string, example: "Erro interno do servidor" }
+                  codigo: { type: integer, example: 500 }
+                  campo: { type: string, nullable: true, example: null }
+
+  # TODO: endpoint de consulta de resultados — replicar o mesmo padrão acima
+  # /api/v1/analise-energetica/{id}:
+  #   get:
+  #     summary: Consulta o resultado de uma análise já realizada

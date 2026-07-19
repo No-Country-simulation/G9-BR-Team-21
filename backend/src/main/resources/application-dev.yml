@@ -1,0 +1,7 @@
+server:
+  port: 8080
+
+ml:
+  service:
+    url: ${MODEL_SERVICE_URL:http://localhost:8000}
+    timeout: 3000

@@ -1,0 +1,231 @@
+# ==================================================
+# API EnergiAI
+#
+# Versionamento adotado: /api/v1
+#
+# Todos os endpoints deverão utilizar esse prefixo.
+#
+# Exemplo:
+# POST /api/v1/analise-energetica
+# ==================================================
+
+openapi: 3.0.3
+
+info:
+  title: API EnergiAI
+  version: 1.0.0
+  description: |
+    API de classificação de perfil energético do EnergiAI.
+
+    Todos os endpoints utilizam o prefixo /api/v1.
+
+    Valores de tipo_imovel e as faixas de consumo_kwh estão
+    pendentes de confirmação final com o time de Data Science.
+
+servers:
+  - url: /api/v1
+    description: Versão 1 da API
+
+tags:
+  - name: Análise Energética
+    description: Operações relacionadas à análise do consumo energético.
+
+paths:
+
+  /analise-energetica:
+
+    post:
+
+      tags:
+        - Análise Energética
+
+      operationId: analisarConsumo
+
+      summary: Analisa o perfil energético de consumo
+
+      description: |
+        Recebe informações sobre o consumo energético,
+        realiza a classificação utilizando o modelo de
+        Ciência de Dados e retorna categoria,
+        probabilidade, recomendações e custo estimado.
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+
+            schema:
+              $ref: '#/components/schemas/AnaliseRequest'
+
+      responses:
+
+        '200':
+          description: Análise realizada com sucesso
+
+          content:
+            application/json:
+
+              schema:
+                $ref: '#/components/schemas/AnaliseResponse'
+
+        '400':
+          description: Requisição inválida — campo obrigatório ausente ou tipo de dado incorreto
+
+          content:
+            application/json:
+
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+        '422':
+          description: Valor fora da faixa permitida ou fora do enum aceito
+
+          content:
+            application/json:
+
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+        '500':
+          description: Erro interno inesperado
+
+          content:
+            application/json:
+
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+        '503':
+          description: Serviço de análise (model service) indisponível
+
+          content:
+            application/json:
+
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+
+  schemas:
+
+    #################################################
+    # REQUEST
+    #################################################
+
+    AnaliseRequest:
+
+      type: object
+
+      required:
+        - consumo_kwh
+        - uso_horario_pico
+        - quantidade_equipamentos
+        - tipo_imovel
+        - horas_alto_consumo
+
+      properties:
+
+        consumo_kwh:
+          type: number
+          description: Consumo mensal de energia em kWh.
+          example: 420
+          minimum: 0
+          exclusiveMinimum: true
+          # PENDENTE: confirmar valores exatos com o DS
+
+        uso_horario_pico:
+          type: boolean
+          description: Indica se o consumo ocorre predominantemente em horários de pico.
+          example: true
+
+        quantidade_equipamentos:
+          type: integer
+          description: Quantidade de equipamentos utilizados.
+          example: 10
+
+        tipo_imovel:
+          type: string
+          description: Tipo do imóvel analisado.
+          enum:
+            - Casa
+            - Apartamento
+            - Comércio
+          example: Casa
+          # PENDENTE: confirmar valores exatos com o DS
+
+        horas_alto_consumo:
+          type: integer
+          description: Quantidade de horas diárias de alto consumo.
+          example: 8
+
+    #################################################
+    # RESPONSE
+    #################################################
+
+    AnaliseResponse:
+
+      type: object
+
+      properties:
+
+        categoria:
+          type: string
+          description: Categoria de eficiência energética.
+          enum:
+            - Eficiente
+            - Moderado
+            - Ineficiente
+          example: Ineficiente
+          # PENDENTE: confirmar valores exatos com o DS
+
+        probabilidade:
+          type: number
+          description: Probabilidade da classificação.
+          example: 0.81
+          # PENDENTE: confirmar valores exatos com o DS
+
+        recomendacoes:
+          type: array
+          description: Lista de recomendações para otimizar o consumo.
+          items:
+            type: string
+          example:
+            - "Reduzir o uso de equipamentos durante horários de pico"
+            - "Avaliar aparelhos com alto consumo energético"
+
+        custo_estimado_mensal:
+          type: number
+          description: Estimativa de custo mensal utilizando a tarifa de referência.
+          example: 315.00
+
+    #################################################
+    # ERROR RESPONSE
+    #################################################
+
+    ErrorResponse:
+
+      type: object
+
+      properties:
+
+        erro:
+          type: string
+          description: Mensagem descritiva do erro.
+          example: Campo consumo_kwh é obrigatório
+
+        codigo:
+          type: integer
+          description: Código HTTP retornado.
+          example: 400
+
+        campo:
+          type: string
+          nullable: true
+          description: Campo relacionado ao erro, quando aplicável.
+          example: consumo_kwh
+
+  # TODO: endpoint de consulta de resultados — replicar o mesmo padrão acima
+  # /analise-energetica/{id}:
+  #   get:
+  #     summary: Consulta o resultado de uma análise já realizada

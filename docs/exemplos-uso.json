@@ -1,0 +1,69 @@
+{
+  "observacao": "categoria e probabilidade são valores ilustrativos definidos pelo time de Back-End para fins de contrato e teste. Serão substituídos pelos retornos reais do modelo assim que estiver treinado e integrado. custo_estimado_mensal é calculado pela própria API (consumo_kwh x R$ 0,75) e já reflete a regra final.",
+  "exemplos": [
+    {
+      "nome": "Perfil Eficiente",
+      "descricao": "Baixo consumo, poucos equipamentos e pouco uso em horário de pico.",
+      "entrada": {
+        "consumo_kwh": 120,
+        "uso_horario_pico": false,
+        "quantidade_equipamentos": 5,
+        "tipo_imovel": "Casa",
+        "horas_alto_consumo": 2
+      },
+      "saida_esperada": {
+        "categoria": "Eficiente",
+        "probabilidade": 0.96,
+        "recomendacoes": [
+          "Continue mantendo hábitos de consumo consciente.",
+          "Realize manutenção periódica dos equipamentos.",
+          "Considere instalar painéis solares para aumentar a economia."
+        ],
+        "custo_estimado_mensal": 90.00
+      }
+    },
+    {
+      "nome": "Perfil Moderado",
+      "descricao": "Consumo intermediário com alguns hábitos que podem ser otimizados.",
+      "entrada": {
+        "consumo_kwh": 320,
+        "uso_horario_pico": true,
+        "quantidade_equipamentos": 10,
+        "tipo_imovel": "Apartamento",
+        "horas_alto_consumo": 5
+      },
+      "saida_esperada": {
+        "categoria": "Moderado",
+        "probabilidade": 0.84,
+        "recomendacoes": [
+          "Evite utilizar vários equipamentos simultaneamente no horário de pico.",
+          "Substitua equipamentos antigos por modelos mais eficientes.",
+          "Monitore o consumo mensal para identificar desperdícios."
+        ],
+        "custo_estimado_mensal": 240.00
+      }
+    },
+    {
+      "nome": "Perfil Ineficiente",
+      "descricao": "Alto consumo, muitos equipamentos e uso intenso em horário de pico.",
+      "entrada": {
+        "consumo_kwh": 680,
+        "uso_horario_pico": true,
+        "quantidade_equipamentos": 22,
+        "tipo_imovel": "Comércio",
+        "horas_alto_consumo": 10
+      },
+      "saida_esperada": {
+        "categoria": "Ineficiente",
+        "probabilidade": 0.98,
+        "recomendacoes": [
+          "Reduzir o uso de equipamentos durante os horários de pico.",
+          "Avaliar equipamentos com alto consumo energético.",
+          "Distribuir atividades de maior consumo ao longo do dia.",
+          "Implementar ações de eficiência energética."
+        ],
+        "custo_estimado_mensal": 510.00
+      }
+    }
+  ]
+}

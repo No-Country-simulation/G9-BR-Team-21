@@ -1,0 +1,38 @@
+// AnaliseRequest.java (rascunho)
+public record AnaliseRequest(
+    @NotNull @DecimalMin(value = "0", inclusive = false)
+    Double consumoKwh,          // JSON: consumo_kwh
+
+    @NotNull
+    Boolean usoHorarioPico,     // JSON: uso_horario_pico
+
+    @NotNull
+    Integer quantidadeEquipamentos,
+
+    @NotNull
+    TipoImovel tipoImovel,      // enum Java, não String — decisão a confirmar
+
+    @NotNull
+    Integer horasAltoConsumo
+) {}
+
+// TipoImovel.java (rascunho)
+public enum TipoImovel {
+    CASA, APARTAMENTO, COMERCIO
+    // PENDENTE: confirmar se DS usa mais algum valor
+}
+
+// AnaliseResponse.java (rascunho)
+public record AnaliseResponse(
+    Categoria categoria,
+    Double probabilidade,       // PENDENTE: formato ainda em definição
+    List<String> recomendacoes,
+    Double custoEstimadoMensal
+) {}
+
+// ErrorResponse.java (rascunho)
+public record ErrorResponse(
+    String erro,
+    Integer codigo,
+    String campo  // nullable
+) {}

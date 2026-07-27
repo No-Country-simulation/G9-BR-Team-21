@@ -16,11 +16,12 @@ import java.util.List;
 @RequestMapping("/api/v1/analise-energetica")
 public class AnaliseController {
 
+    private static final double TARIFA_KWH = 0.75;
+
     @PostMapping
     public ResponseEntity<AnaliseResponse> analisar(@Valid @RequestBody AnaliseRequest request){
-        if (request.consumoKwh() != null && request.consumoKwh() > 100000) {
-            throw new ValorInvalidoException("consumo_kwh excede o limite permitido", "consumo_kwh");
-        }
+        double custoEstimado = request.consumoKwh() * TARIFA_KWH;
+
         AnaliseResponse mock = new AnaliseResponse(
                 "Eficiente",
                 0.96,
@@ -29,9 +30,8 @@ public class AnaliseController {
                         "Realize manutenção periódica dos equipamentos.",
                         "Considere instalar painéis solares para aumentar a economia."
                 ),
-                90.00
+                custoEstimado
         );
-
         return ResponseEntity.ok(mock);
     }
 

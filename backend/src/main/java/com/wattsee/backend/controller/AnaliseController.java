@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
+import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/api/v1/analise-energetica")
@@ -22,7 +23,10 @@ public class AnaliseController {
     public ResponseEntity<AnaliseResponse> analisar(@Valid @RequestBody AnaliseRequest request){
         double custoEstimado = request.consumoKwh() * TARIFA_KWH;
 
+        String id = UUID.randomUUID().toString();
+
         AnaliseResponse mock = new AnaliseResponse(
+                id,
                 "Eficiente",
                 0.96,
                 List.of(

@@ -87,4 +87,10 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.internalServerError().body(erro);
     }
+
+    @ExceptionHandler(ServicoIndisponivelException.class)
+    public ResponseEntity<ErrorResponse> handleServicoIndisponivel(ServicoIndisponivelException ex){
+        ErrorResponse erro = new ErrorResponse(ex.getMessage(), 503, null);
+        return ResponseEntity.status(503).body(erro);
+    }
 }

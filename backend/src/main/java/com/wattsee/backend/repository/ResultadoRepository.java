@@ -2,7 +2,6 @@ package com.wattsee.backend.repository;
 
 
 import com.wattsee.backend.dto.response.AnaliseResponse;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;

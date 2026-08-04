@@ -105,6 +105,51 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /analise-energetica/{id}:
+
+    get:
+
+      tags:
+        - Análise Energética
+
+      operationId: buscarAnalisePorId
+
+      summary: Consulta o resultado de uma análise já realizada
+
+      description: |
+        Recebe o identificador de uma análise já realizada e retorna
+        categoria, probabilidade, recomendações e custo estimado
+        correspondentes a essa análise.
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Identificador único da análise, gerado no momento do POST.
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+
+        '200':
+          description: Análise encontrada com sucesso
+
+          content:
+            application/json:
+
+              schema:
+                $ref: '#/components/schemas/AnaliseResponse'
+
+        '404':
+          description: Nenhuma análise encontrada para o id informado
+
+          content:
+            application/json:
+
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
 
   schemas:
@@ -168,6 +213,12 @@ components:
       type: object
 
       properties:
+
+        id:
+          type: string
+          format: uuid
+          description: Identificador único da análise realizada.
+          example: "a3f2c1e4-9b7d-4e21-8f6a-1c9d3e5f7a2b"
 
         categoria:
           type: string

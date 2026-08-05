@@ -5,5 +5,4 @@ public enum TipoImovel {
     CASA,
     APARTAMENTO,
     COMERCIO;
-
 }

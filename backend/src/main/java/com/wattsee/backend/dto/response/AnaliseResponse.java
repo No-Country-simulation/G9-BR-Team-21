@@ -5,6 +5,9 @@ import java.util.List;
 
 public record AnaliseResponse(
 
+        @JsonProperty("id")
+        String id,
+
         @JsonProperty("categoria")
         String categoria,
 

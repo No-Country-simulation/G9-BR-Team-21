@@ -93,4 +93,16 @@ public class GlobalExceptionHandler {
         ErrorResponse erro = new ErrorResponse(ex.getMessage(), 503, null);
         return ResponseEntity.status(503).body(erro);
     }
+
+    @ExceptionHandler(AnaliseNaoEncontradaException.class)
+    public ResponseEntity<ErrorResponse> handleAnaliseNaoEncontrada(
+            AnaliseNaoEncontradaException ex) {
+
+        ErrorResponse erro = new ErrorResponse(
+                ex.getMessage(),
+                404,
+                "id"
+        );
+        return ResponseEntity.status(404).body(erro);
+    }
 }

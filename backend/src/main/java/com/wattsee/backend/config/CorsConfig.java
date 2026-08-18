@@ -5,11 +5,16 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class CorsConfig  implements WebMvcConfigurer {
+public class CorsConfig implements WebMvcConfigurer {
+
     @Override
-    public void addCorsMappings(CorsRegistry registry){
-        registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:3000", "https://wattsee-jm15pz35y-medeiros20s-projects.vercel.app/")
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOriginPatterns(
+                        "http://localhost:3000",
+                        "https://*.vercel.app",
+                        "https://wattsee-api.duckdns.org"
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                 .allowedHeaders("*")
                 .allowCredentials(false)

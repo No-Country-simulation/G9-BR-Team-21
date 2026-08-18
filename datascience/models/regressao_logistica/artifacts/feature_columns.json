@@ -1,0 +1,10 @@
+[
+  "consumo_kwh",
+  "horas_alto_consumo",
+  "uso_horario_pico",
+  "quantidade_equipamentos",
+  "consumo_por_equipamento",
+  "tipo_imovel_Apartamento",
+  "tipo_imovel_Casa",
+  "tipo_imovel_Comercio"
+]

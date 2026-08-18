@@ -6,9 +6,3 @@ ml:
     url: ${MODEL_SERVICE_URL:http://localhost:8000}
     timeout: 3000
 
-# URL criada para teste de um retorno do microsserviço ainda não completo, provavelmente não está mais funcionando
-model-service:
-  url: http://localhost:9999
-  # url: https://whatsee-mock.free.beeceptor.com
-
-Access-Control-Allow-Origin: http://localhost:3000

@@ -3,5 +3,5 @@ server:
 
 ml:
   service:
-    url:  ${MODEL_SERVICE_URL:http://model-service:8000}
+    url: ${MODEL_SERVICE_URL:http://IP-DA-VM-DO-PYTHON:8000}
     timeout: 3000

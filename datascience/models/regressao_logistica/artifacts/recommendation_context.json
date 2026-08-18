@@ -1,0 +1,44 @@
+{
+  "feature_importances": {
+    "consumo_kwh": 2.956969292083819,
+    "horas_alto_consumo": 1.4327515731860005,
+    "uso_horario_pico": 3.047467420350127,
+    "quantidade_equipamentos": 1.3780954894700277,
+    "consumo_por_equipamento": 2.228735161418114,
+    "tipo_imovel": 1.0658999120473456
+  },
+  "benchmarks": {
+    "consumo_kwh": {
+      "geral": {
+        "p25": 165.27449995,
+        "p50": 244.821,
+        "p75": 364.285500125
+      },
+      "por_tipo_imovel": {
+        "APARTAMENTO": 179.99,
+        "CASA": 347.41,
+        "COMERCIO": 644.87
+      }
+    },
+    "consumo_por_equipamento": {
+      "geral": {
+        "p25": 26.15356249375,
+        "p50": 32.25006254375,
+        "p75": 39.60821428928572
+      },
+      "por_tipo_imovel": {
+        "APARTAMENTO": 31.17,
+        "CASA": 38.41,
+        "COMERCIO": 41.77
+      }
+    },
+    "horas_alto_consumo": {
+      "p50": 7.937956204379562,
+      "p75": 9.02227881956966
+    },
+    "quantidade_equipamentos": {
+      "p50": 7.0,
+      "p75": 11.0
+    }
+  }
+}

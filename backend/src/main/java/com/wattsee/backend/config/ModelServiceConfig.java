@@ -9,7 +9,7 @@ import org.springframework.web.client.RestClient;
 @Configuration
 public class ModelServiceConfig {
     @Bean
-    public RestClient modelServiceRestClient(@Value("${model-service.url}") String baseUrl) {
+    public RestClient modelServiceRestClient(@Value("${ml.service.url}") String baseUrl) {
 
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         factory.setConnectTimeout(3000); // 3 segundos
